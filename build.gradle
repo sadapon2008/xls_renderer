@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+compileJava.options.encoding = 'UTF-8'
+
+mainClassName = 'jp.co.fusic.sadapon2008.xr.App'
+startScripts.applicationName = 'xls_renderer'
+jar.baseName = 'xls_renderer'
+distZip.baseName = 'xls_renderer'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.poi:poi:3.11'
+    compile 'org.apache.poi:poi-ooxml:3.11'
+    compile 'net.sf.opencsv:opencsv:2.3'
+    compile 'commons-cli:commons-cli:1.2'
+    compile 'commons-lang:commons-lang:2.6'
+    testCompile 'junit:junit:4.11'
+}
+
+run {
+    if ( project.hasProperty('args') ) {
+        args project.args.split('\\s+')
+    }
+}
