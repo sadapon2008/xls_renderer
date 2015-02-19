@@ -26,3 +26,7 @@ run {
         args project.args.split('\\s+')
     }
 }
+
+startScripts {
+    defaultJvmOpts += ['-Djava.awt.headless=true -Dfile.encoding=utf-8']
+}
