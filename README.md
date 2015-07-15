@@ -2,12 +2,14 @@
 
 ## 概要
 
-.xls形式のテンプレートファイルに.csv形式のデータを差し込みして.xls形式を出力します。
+.xls/.xlsx形式のテンプレートファイルに.csv形式のデータを差し込みして.xls/.xlsx形式を出力します。
 
 ## 実行例
 
 ```shell
 xls_renderer -d data.csv -p parameter.csv -pc 8 -pr 8 -t template.xls -o output.xls
+
+xls_renderer -d data.csv -p parameter.csv -pc 8 -pr 8 -t template.xlsx -o output.xlsx -x
 ```
 
 ## コマンドラインオプション
@@ -42,8 +44,12 @@ xls_renderer -d data.csv -p parameter.csv -pc 8 -pr 8 -t template.xls -o output.
 
 ### -t template.xls
 
-* テンプレート用の.xlsファイル名を指定します。
+* テンプレート用の.xls/xlsxファイル名を指定します。
 
 ### -o output.xls
 
-* 出力する.xlsファイル名を指定します。
+* 出力する.xls/xlsxファイル名を指定します。
+
+### -x
+
+* テンプレートと出力のファイル形式を.xlsxとして扱います。指定しない場合は.xlsとして扱います。

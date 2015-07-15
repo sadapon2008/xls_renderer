@@ -20,6 +20,7 @@ public class App {
         String filename_output_xls = "";
         String pixcel_per_col = "";
         String pixcel_per_row = "";
+        boolean xlsx_flag = false;
 
         // コマンドライン引数を解析する
         Options opts = new Options();
@@ -29,6 +30,7 @@ public class App {
         opts.addOption("o", true, "output xls file");
         opts.addOption("pc", true, "number of pixcels per col for image (default: 8)");
         opts.addOption("pr", true, "number of pixcels per row for image (default: 8)");
+        opts.addOption("x", false, "process for xlsx format");
         BasicParser parser = new BasicParser();
         CommandLine cl;
         HelpFormatter help = new HelpFormatter();
@@ -44,6 +46,8 @@ public class App {
 
             pixcel_per_col = cl.getOptionValue("pc", "8");
             pixcel_per_row = cl.getOptionValue("pr", "8");
+
+            xlsx_flag = cl.hasOption("x");
 
             if((filename_data_csv == null)
                || (filename_parameter_csv == null)
@@ -83,12 +87,22 @@ public class App {
             System.exit(1);
         }
 
-        try {
-            XRXlsRenderer renderer = new XRXlsRenderer();
-            renderer.renderFile(data_result, parameter_result, filename_template_xls, filename_output_xls, Integer.parseInt(pixcel_per_col), Integer.parseInt(pixcel_per_row));
-        } catch(IOException e) {
-            System.err.println("error: failed to access excel file");
-            System.exit(1);
+        if(!xlsx_flag) {
+            try {
+                XRXlsRenderer renderer = new XRXlsRenderer();
+                renderer.renderFile(data_result, parameter_result, filename_template_xls, filename_output_xls, Integer.parseInt(pixcel_per_col), Integer.parseInt(pixcel_per_row));
+            } catch(IOException e) {
+                System.err.println("error: failed to access excel file");
+                System.exit(1);
+            }
+        } else {
+            try {
+                XRXlsxRenderer renderer = new XRXlsxRenderer();
+                renderer.renderFile(data_result, parameter_result, filename_template_xls, filename_output_xls, Integer.parseInt(pixcel_per_col), Integer.parseInt(pixcel_per_row));
+            } catch(IOException e) {
+                System.err.println("error: failed to access excel file");
+                System.exit(1);
+            }
         }
     }
 }
